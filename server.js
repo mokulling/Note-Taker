@@ -40,7 +40,7 @@ app.post('/api/notes', (req, res) => {
 
 //api routes
 app.get('/api/notes', (req,res) => {
-    console.log(res)
+  res.sendFile(path.join(__dirname,'/db/db.json'))
 });
 
 app.delete('/api/notes', (req, res) => {
