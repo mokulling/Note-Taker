@@ -27,7 +27,7 @@ app.post('/api/notes', (req, res) => {
     array.push(req.body)
     fs.writeFile('db/db.json', JSON.stringify(array), function(err) {
       if (err) throw err;
-      return;
+      
     })
   })
   //console.log(req.body)
@@ -43,9 +43,35 @@ app.get('/api/notes', (req,res) => {
   res.sendFile(path.join(__dirname,'/db/db.json'))
 });
 
-app.delete('/api/notes', (req, res) => {
-    console.log('this will be deleted')
-});
+
+
+app.delete("/api/notes/:id", function(req, res) {
+  fs.readFile('db/db.json', 'utf-8', function(err, json) {
+    if (err) throw err;
+    var array = JSON.parse(json);
+    array.map(function(el){
+      var o = Object.assign({}, el);
+      o.id = () => {
+        for (let i = 0; i < array.length; i++) {
+          const element = array[i];
+          return element;
+          
+        }
+      }
+    })
+    array.push(req.body)
+    fs.writeFile('db/db.json', JSON.stringify(array), function(err) {
+      if (err) throw err;
+      
+    })
+  })
+})
+  
+
+    //console.log(req.body)
+    
+
+
 
 app.get('/assets/js/index.js', (req, res) => {
   res.sendFile(path.join(__dirname, './public/assets/js/index.js'))
@@ -62,4 +88,3 @@ app.get('/assets/js/index.js', (req, res) => {
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
-  
